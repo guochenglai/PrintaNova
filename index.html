@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintaNova - Custom Paper Products</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 2em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav {
+            background-color: #283593;
+            padding: 1em;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8em 1.5em;
+            margin: 0 0.5em;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #3949ab;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 2em;
+        }
+        .container h2 {
+            color: #1a237e;
+            font-size: 2.5em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        .container > p {
+            font-size: 1.1em;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 2em;
+            text-align: center;
+        }
+        .featured-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            margin-top: 2em;
+        }
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2em;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+        .product-card h3 {
+            color: #1a237e;
+            font-size: 1.5em;
+            margin-bottom: 0.8em;
+        }
+        .product-card p {
+            color: #555;
+            margin-bottom: 1.2em;
+        }
+        .product-card a {
+            display: inline-block;
+            background: #3949ab;
+            color: white;
+            text-decoration: none;
+            padding: 0.8em 1.5em;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .product-card a:hover {
+            background: #1a237e;
+        }
+        footer {
+            background-color: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 2em;
+            margin-top: 2em;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1em;
+            }
+            .featured-products {
+                grid-template-columns: 1fr;
+            }
+            .product-card {
+                padding: 1.5em;
+            }
+            .container h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="container">
+        <h2>Welcome to PrintaNova</h2>
+        <p>We specialize in creating high-quality custom paper products for your business needs. From packaging solutions to marketing materials, we've got you covered.</p>
+
+        <div class="featured-products">
+            <div class="product-card" id="boxes" data-product-id="boxes">
+                <h3>Custom Packaging Boxes</h3>
+                <p>Premium cardboard boxes tailored to your specifications</p>
+                <p>Views: <span id="views-boxes">0</span></p>
+                <a href="boxes.html">Learn More</a>
+            </div>
+            <div class="product-card" id="wallpaper" data-product-id="wallpaper">
+                <h3>Custom Wallpaper</h3>
+                <p>Transform your space with personalized wallpaper designs</p>
+                <p>Views: <span id="views-wallpaper">0</span></p>
+                <a href="wallpaper.html">Learn More</a>
+            </div>
+            <div class="product-card" id="billboard" data-product-id="billboard">
+                <h3>Custom Billboards</h3>
+                <p>Make a big impact with custom billboard designs</p>
+                <p>Views: <span id="views-billboard">0</span></p>
+                <a href="billboard.html">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="components/viewCounter.js"></script>
+    <script>
+        // Load common components
+        async function loadComponent(elementId, componentPath) {
+            try {
+                const response = await fetch(componentPath);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const content = await response.text();
+                document.getElementById(elementId).innerHTML = content;
+            } catch (error) {
+                console.error('Error loading component:', error);
+                document.getElementById(elementId).innerHTML = `<p>Error loading component. Please ensure you're running the site through a web server.</p>`;
+            }
+        }
+
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', () => {
+            loadComponent('header-placeholder', './components/header.html');
+            loadComponent('footer-placeholder', './components/footer.html');
+        });
+
+        // Initialize view tracking
+        setupViewTracking();
+    </script>
+</body>
+</html>

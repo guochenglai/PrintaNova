@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    // ...existing code...
+    <style>
+        /* Reusing styles from index.html */
+        // ...existing code...
+
+        /* Carousel Styles */
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 2em;
+            overflow: hidden;
+        }
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 1em;
+            border: none;
+            cursor: pointer;
+        }
+        .carousel-button.prev { left: 0; }
+        .carousel-button.next { right: 0; }
+
+        /* Video Styles */
+        .product-video {
+            width: 100%;
+            max-width: 800px;
+            margin: 2em auto;
+        }
+        .product-video video {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-section {
+            margin-bottom: 3em;
+            padding: 2em;
+            border: 1px solid #ddd;
+        }
+        // ...existing code...
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="container">
+        <div id="boxes" class="product-section">
+            <h2>Custom Packaging Boxes</h2>
+            
+            <div class="carousel">
+                <div class="carousel-container" id="boxes-carousel">
+                    <div class="carousel-slide">
+                        <img src="images/boxes/sample1.jpg" alt="Custom box sample 1">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/boxes/sample2.jpg" alt="Custom box sample 2">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/boxes/sample3.jpg" alt="Custom box sample 3">
+                    </div>
+                </div>
+                <button class="carousel-button prev" onclick="moveCarousel('boxes-carousel', -1)">❮</button>
+                <button class="carousel-button next" onclick="moveCarousel('boxes-carousel', 1)">❯</button>
+            </div>
+
+            <div class="product-video">
+                <video controls>
+                    <source src="videos/boxes-demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="product-details">
+                // ...existing code...
+            </div>
+        </div>
+
+        <div id="wallpaper" class="product-section">
+            <h2>Custom Wallpaper</h2>
+            
+            <div class="carousel">
+                <div class="carousel-container" id="wallpaper-carousel">
+                    <div class="carousel-slide">
+                        <img src="images/wallpaper/sample1.jpg" alt="Wallpaper sample 1">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/wallpaper/sample2.jpg" alt="Wallpaper sample 2">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/wallpaper/sample3.jpg" alt="Wallpaper sample 3">
+                    </div>
+                </div>
+                <button class="carousel-button prev" onclick="moveCarousel('wallpaper-carousel', -1)">❮</button>
+                <button class="carousel-button next" onclick="moveCarousel('wallpaper-carousel', 1)">❯</button>
+            </div>
+
+            <div class="product-video">
+                <video controls>
+                    <source src="videos/wallpaper-demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="product-details">
+                // ...existing code...
+            </div>
+        </div>
+
+        <div id="billboard" class="product-section">
+            <h2>Custom Billboards</h2>
+            
+            <div class="carousel">
+                <div class="carousel-container" id="billboard-carousel">
+                    <div class="carousel-slide">
+                        <img src="images/billboard/sample1.jpg" alt="Billboard sample 1">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/billboard/sample2.jpg" alt="Billboard sample 2">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/billboard/sample3.jpg" alt="Billboard sample 3">
+                    </div>
+                </div>
+                <button class="carousel-button prev" onclick="moveCarousel('billboard-carousel', -1)">❮</button>
+                <button class="carousel-button next" onclick="moveCarousel('billboard-carousel', 1)">❯</button>
+            </div>
+
+            <div class="product-video">
+                <video controls>
+                    <source src="videos/billboard-demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="product-details">
+                // ...existing code...
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="components/viewCounter.js"></script>
+    <script>
+        // Load common components
+        // ...existing code...
+
+        // Carousel functionality
+        function moveCarousel(carouselId, direction) {
+            const container = document.querySelector(`#${carouselId}`);
+            const slides = container.children.length;
+            let currentPosition = parseInt(container.getAttribute('data-position') || 0);
+            
+            currentPosition = (currentPosition + direction + slides) % slides;
+            container.style.transform = `translateX(-${currentPosition * 100}%)`;
+            container.setAttribute('data-position', currentPosition);
+        }
+
+        // Initialize carousels
+        document.addEventListener('DOMContentLoaded', () => {
+            // Existing code for loading components
+            loadComponent('header-placeholder', 'components/header.html');
+            loadComponent('footer-placeholder', 'components/footer.html');
+
+            // Initialize view tracking
+            setupViewTracking();
+        });
+    </script>
+</body>
+</html>
