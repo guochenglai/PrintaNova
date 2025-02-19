@@ -115,34 +115,142 @@
                 font-size: 2em;
             }
         }
+        .hero-section {
+            background: linear-gradient(rgba(26, 35, 126, 0.9), rgba(26, 35, 126, 0.7)), url('images/boxes/sample1.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4em 2em;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+        .hero-section h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+        .hero-section p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1em;
+        }
+        .benefits-section {
+            margin: 4em 0;
+            text-align: center;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2em;
+            margin-top: 2em;
+        }
+        .benefit-card {
+            background: white;
+            padding: 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        .cta-section {
+            background-color: #3949ab;
+            color: white;
+            padding: 3em 2em;
+            text-align: center;
+            margin: 4em 0 2em;
+            border-radius: 8px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #3949ab;
+            padding: 1em 2em;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 1em;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
     <div id="header-placeholder"></div>
 
-    <div class="container">
-        <h2>Welcome to PrintaNova</h2>
-        <p>We specialize in creating high-quality custom paper products for your business needs. From packaging solutions to marketing materials, we've got you covered.</p>
+    <div class="hero-section">
+        <h1>Transform Your Brand with PrintaNova</h1>
+        <p>Your vision, our expertise. We create exceptional custom paper products that make your brand stand out in today's competitive market.</p>
+    </div>
 
+    <div class="container">
+        <div class="benefits-section">
+            <h2>Why Choose PrintaNova?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>Premium Quality</h3>
+                    <p>Industry-leading materials and cutting-edge printing technology for outstanding results.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Custom Solutions</h3>
+                    <p>Tailored designs and specifications to match your exact requirements.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Fast Turnaround</h3>
+                    <p>Quick production and delivery without compromising on quality.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Our Featured Products</h2>
         <div class="featured-products">
             <div class="product-card" id="boxes" data-product-id="boxes">
+                <img src="images/boxes/sample1.png" alt="Custom Packaging Boxes">
                 <h3>Custom Packaging Boxes</h3>
-                <p>Premium cardboard boxes tailored to your specifications</p>
+                <p>Elevate your product presentation with our premium custom boxes. Perfect for retail, shipping, or display purposes, our boxes combine durability with stunning design.</p>
+                <ul style="text-align: left; margin-bottom: 1em;">
+                    <li>Multiple size options</li>
+                    <li>Full-color printing</li>
+                    <li>Eco-friendly materials</li>
+                </ul>
                 <p>Views: <span id="views-boxes">0</span></p>
-                <a href="boxes.html">Learn More</a>
+                <a href="boxes.html">Explore Boxes</a>
             </div>
             <div class="product-card" id="wallpaper" data-product-id="wallpaper">
+                <img src="images/wallpaper/sample1.png" alt="Custom Wallpaper">
                 <h3>Custom Wallpaper</h3>
-                <p>Transform your space with personalized wallpaper designs</p>
+                <p>Create unique spaces with our custom wallpaper solutions. Whether it's for home, office, or retail spaces, bring your walls to life with stunning designs.</p>
+                <ul style="text-align: left; margin-bottom: 1em;">
+                    <li>High-resolution printing</li>
+                    <li>Easy installation</li>
+                    <li>Durable materials</li>
+                </ul>
                 <p>Views: <span id="views-wallpaper">0</span></p>
-                <a href="wallpaper.html">Learn More</a>
+                <a href="wallpaper.html">Discover Wallpapers</a>
             </div>
             <div class="product-card" id="billboard" data-product-id="billboard">
+                <img src="images/billboard/sample1.png" alt="Custom Billboards">
                 <h3>Custom Billboards</h3>
-                <p>Make a big impact with custom billboard designs</p>
+                <p>Make a lasting impression with our large-format billboard solutions. Perfect for outdoor advertising and promotional campaigns that demand attention.</p>
+                <ul style="text-align: left; margin-bottom: 1em;">
+                    <li>Weather-resistant</li>
+                    <li>Vibrant colors</li>
+                    <li>Various sizes available</li>
+                </ul>
                 <p>Views: <span id="views-billboard">0</span></p>
-                <a href="billboard.html">Learn More</a>
+                <a href="billboard.html">View Billboards</a>
             </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Start Your Project?</h2>
+            <p>Contact us today for a free consultation and quote.</p>
+            <a href="contact.html" class="cta-button">Get Started</a>
         </div>
     </div>
 
