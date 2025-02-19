@@ -271,14 +271,16 @@
             }
         }
 
-        // Load header and footer
-        document.addEventListener('DOMContentLoaded', () => {
-            loadComponent('header-placeholder', './components/header.html');
-            loadComponent('footer-placeholder', './components/footer.html');
-        });
-
         // Initialize view tracking
-        setupViewTracking();
+        document.addEventListener('DOMContentLoaded', async () => {
+            await Promise.all([
+                loadComponent('header-placeholder', './components/header.html'),
+                loadComponent('footer-placeholder', './components/footer.html')
+            ]);
+
+            // Initialize view tracking after components are loaded
+            await setupViewTracking();
+        });
     </script>
 </body>
 </html>
