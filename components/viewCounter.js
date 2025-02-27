@@ -84,11 +84,18 @@ function updateAllCounters(productId, value) {
 async function setupViewTracking(options = {}) {
     const { selector = '.product-section' } = options;
 
-    // Only increment views on detail pages
-    const isDetailPage = !window.location.pathname.endsWith('index.html') && 
-                        !window.location.pathname.endsWith('/') &&
-                        window.location.pathname.includes('.html');
-
+    // Determine if this is a detail page
+    const isDetailPage = window.location.pathname.includes('billboard.html') || window.location.pathname.includes('wallpaper.html') || window.location.pathname.includes('boxes.html');
+    
+    // Get current page product ID (for detail pages)
+    let currentPageProductId = null;
+    if (isDetailPage) {
+        // Extract product ID from pathname (e.g., "boxes" from "boxes.html")
+        const pathname = window.location.pathname;
+        const filename = pathname.substring(pathname.lastIndexOf('/') + 1);
+        currentPageProductId = filename.replace('.html', '');
+    }
+    
     // First, initialize the view counters (always do this regardless of page type)
     const products = ['boxes', 'wallpaper', 'billboard'];
     
@@ -102,7 +109,14 @@ async function setupViewTracking(options = {}) {
         }
     }
     
-    // Only set up the intersection observer for detail pages
+    // For detail pages, immediately increment the view counter for the current product
+    if (isDetailPage && currentPageProductId && products.includes(currentPageProductId)) {
+        console.log(`Incrementing view for ${currentPageProductId} on page load`);
+        incrementView(currentPageProductId);
+    }
+    
+    // Also set up the intersection observer for detail pages
+    // This ensures views are counted when elements scroll into view
     if (isDetailPage) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
