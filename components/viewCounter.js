@@ -1,24 +1,21 @@
-// View counter functionality using JSON file
+// View counter functionality using in-memory storage with periodic JSON file updates
 async function incrementView(productId) {
     try {
-        // Fetch current views from the server
-        const response = await fetch('/api/views.json');
-        let views = await response.json();
+        // Send increment request to the server (no need to fetch first)
+        const response = await fetch('/api/updateViews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId })
+        });
         
-        if (productId in views) {
-            views[productId]++;
-            
-            // Send updated views to the server
-            await fetch('/api/updateViews', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(views)
-            });
-            
-            updateAllCounters(productId, views[productId]);
-            return views[productId];
+        const result = await response.json();
+        
+        if (result.success) {
+            // Update UI with the returned count
+            updateAllCounters(productId, result.count);
+            return result.count;
         }
     } catch (error) {
         console.error('Error updating view count:', error);
