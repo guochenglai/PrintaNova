@@ -340,6 +340,9 @@
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Preload component files to improve loading reliability -->
+    <link rel="preload" href="components/header.html" as="fetch" crossorigin>
+    <link rel="preload" href="components/footer.html" as="fetch" crossorigin>
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -430,18 +433,52 @@
         async function loadComponent(elementId, componentPath) {
             try {
                 const response = await fetch(componentPath);
+                if (!response.ok) {
+                    throw new Error(`Failed to load component: ${response.status} ${response.statusText}`);
+                }
                 const html = await response.text();
                 document.getElementById(elementId).innerHTML = html;
+                return true;
             } catch (error) {
                 console.error('Error loading component:', error);
+                // Add fallback content if component fails to load
+                if (elementId === 'header-placeholder') {
+                    document.getElementById(elementId).innerHTML = `
+                        <header>
+                            <h1>PrintaNova</h1>
+                            <p>Your Premier Custom Paper Products Solution</p>
+                        </header>
+                        <nav>
+                            <a href="index.html">Home</a>
+                            <a href="contact.html">Contact Us</a>
+                        </nav>`;
+                }
+                return false;
             }
         }
 
+        // Load components with retry mechanism
+        async function loadComponentWithRetry(elementId, componentPath, maxRetries = 2) {
+            let retries = 0;
+            while (retries <= maxRetries) {
+                const success = await loadComponent(elementId, componentPath);
+                if (success) return true;
+                retries++;
+                if (retries <= maxRetries) {
+                    await new Promise(resolve => setTimeout(resolve, 500 * retries)); // Exponential backoff
+                }
+            }
+            return false;
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
-            // Wait for components to load
+            // Ensure scroll position is at the top on page load/refresh
+            window.scrollTo(0, 0);
+            
+            // Wait for components to load with retries
             await Promise.all([
-                loadComponent('header-placeholder', './components/header.html'),
-                loadComponent('footer-placeholder', './components/footer.html')
+                loadComponentWithRetry('header-placeholder', './components/header.html'),
+                loadComponentWithRetry('footer-placeholder', './components/footer.html')
             ]);
 
             // Setup FAQ interactions
@@ -461,6 +498,12 @@
                     }
                 });
             });
+        });
+
+        // Also handle browser history navigation (forward/back buttons)
+        window.addEventListener('pageshow', function(event) {
+            // When the page is shown (including from bfcache)
+            window.scrollTo(0, 0);
         });
 
         // Form submission handler
