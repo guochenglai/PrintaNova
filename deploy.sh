@@ -1,9 +1,23 @@
 #!/bin/bash
 
 # 服务器信息
-SERVER="52.186.171.143"
-USER="azureuser_printing"
-PASSWORD="Ekua_1234567"
+# Read from Windows environment variables with fallbacks
+SERVER=${DEPLOY_SERVER:-%DEPLOY_SERVER%}
+# If it's still the Windows variable format, use the default
+if [ "$SERVER" = "%DEPLOY_SERVER%" ]; then
+  SERVER="52.186.171.143"
+fi
+
+USER=${DEPLOY_USER:-%DEPLOY_USER%}
+if [ "$USER" = "%DEPLOY_USER%" ]; then
+  USER="azureuser_printing"
+fi
+
+PASSWORD=${DEPLOY_PASSWORD:-%DEPLOY_PASSWORD%}
+if [ "$PASSWORD" = "%DEPLOY_PASSWORD%" ]; then
+  PASSWORD="Ekua_1234567"
+fi
+
 DIRECTORY="/home/azureuser_printing/PrintaNova"
 LOGFILE="deploy.log"
 
